@@ -44,10 +44,10 @@
       homeManagerStateVersion = "22.05";
 
       primaryUserInfo = {
-        username = "malo";
-        fullName = "Malo Bourgon";
-        email = "mbourgon@gmail.com";
-        nixConfigDirectory = "/Users/malo/.config/nixpkgs";
+        username = "lucamaraschi";
+        fullName = "Luca Maraschi";
+        email = "luca.maraschi@gmail.com";
+        nixConfigDirectory = "/Users/lucamaraschi/.config/nixpkgs";
       };
 
       # Modules shared by most `nix-darwin` personal configurations.
@@ -92,17 +92,24 @@
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
         # My Apple Silicon macOS laptop config
-        MaloBookPro = darwinSystem {
+        LucaPersonal = darwinSystem {
           system = "aarch64-darwin";
           modules = nixDarwinCommonModules ++ [
             {
               users.primaryUser = primaryUserInfo;
-              networking.computerName = "Malo’s 💻";
-              networking.hostName = "MaloBookPro";
+              networking.computerName = "Luca 💻";
+              networking.hostName = "gotham";
               networking.knownNetworkServices = [
                 "Wi-Fi"
                 "USB 10/100/1000 LAN"
               ];
+
+              homebrew = [
+                homebrew.casks = [
+                  "microsoft-office"
+                  "microsoft-teams"
+                ]
+              ]
             }
           ];
         };
@@ -127,8 +134,8 @@
       cloudVM = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
         stateVersion = homeManagerStateVersion;
-        homeDirectory = "/home/malo";
-        username = "malo";
+        homeDirectory = "/home/lucamaraschi";
+        username = "lucamaraschi";
         configuration = {
           imports = attrValues self.homeManagerModules ++ singleton {
             home.user-info = primaryUserInfo;
